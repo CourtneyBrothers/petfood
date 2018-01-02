@@ -4,8 +4,10 @@ const dogJsonData = require("./jsonData");
 
 
 function displayPetfood(dogfood){
+    
     let output = document.getElementById("output");
-   output.innerHTML =  `${dogfood}`; 
+    for (var property in dogfood){
+        output.innerHTML +=  `${property}  : ${dogfood[property]}`; 
+    }
 }
-
 dogJsonData.dogfoodData(displayPetfood);

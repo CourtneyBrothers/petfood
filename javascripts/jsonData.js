@@ -10,6 +10,7 @@ module.exports.dogfoodData = function(callback){
         const dogfood = JSON.parse(event.target.responseText);
         callback(dogfood);
         console.log("addeventlistener running");
+        console.log(event.target);
         
     });
 };
