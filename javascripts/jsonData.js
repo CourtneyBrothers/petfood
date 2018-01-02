@@ -1,16 +1,16 @@
 "use strict";
 
-module.exports.dogfood =() => {
-    const dogfoodReq = new XMLHttpRequest();
-    dogfoodReq.addEventListener("load", parseDogFood);
-    dogfoodReq.open("GET", "petfood.json");
-    dogfoodReq.send(); 
+require("./food");
+
+module.exports.dogfoodData = function(callback){
+    const loader = new XMLHttpRequest();
+    loader.open("GET", "JSON/petfood.json");
+    loader.send(); 
+    loader.addEventListener("load", function(){
+        const dogfood = JSON.parse(event.target.responseText);
+        callback(dogfood);
+        console.log("addeventlistener running");
+        
+    });
 };
 
-const parseDogFood = () => {
-    const dogfood = JSON.parse(event.target.responseText);
-    for (let i = 0; i < dogfood.length; i++) {
-        let arrayWithJson = messageController.addNewMessage(dogfood[i]); 
-        output.updateDom(arrayWithJson);
-    }      
-};

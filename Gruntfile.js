@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
     grunt.initConfig({
       browserify: {
-        'dist/bundle.js': ['javascripts/main.js']
+        'dist/bundle.js': ['javascripts/food.js']
       },
       jshint: {
         files: ["javascripts/**/*.js"],
