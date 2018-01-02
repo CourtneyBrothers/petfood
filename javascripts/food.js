@@ -9,11 +9,10 @@ const dogJsonData = require("./jsonData");
 function displayPetfood(dogfood){
     
     let output = document.getElementById("output");
-    console.log("dogfood response text",dogfood);
-    let dogfoodArray = Array.from(dogfood);
+    console.log("dogfood response text",JSON.stringify(dogfood));
+    
     console.log("dogfood array", dogfood);
-    for (let i=0; i < dogfoodArray.length; i++){
-        
-    }
+    output.innerHTML = JSON.stringify(dogfood,null, 4);
+   
 }
 dogJsonData.dogfoodData(displayPetfood);
