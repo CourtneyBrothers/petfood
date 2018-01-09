@@ -34,7 +34,7 @@ module.exports.dogfoodData = $.ajax({
     console.log("Ajax done",dogData,"dogData brands",dogData.dog_brands);
     dogData.dog_brands.forEach( (brand) => {
         //loop through brands
-        $output.append(`<h3>${brand.name}</h3>`);
+        $output.append(`<h3>${_startcase(brand.name)}</h3>`);
         //loop through types
             brand.types.forEach( (brandType) => {
                 $output.append(`<h4>${_startcase(brandType.type)}</h4>`);
