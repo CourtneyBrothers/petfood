@@ -1,4 +1,6 @@
+
 "use strict";
+
 const foodFactory = require("./jsonData");
 const foodView = require("./foodView");
 
@@ -8,6 +10,9 @@ foodFactory.dogfoodData().then((dogData)=>{
     foodView.displayFood(dogData.dog_brands);
 });
 
-foodFactory.catfoodData();
-
+module.exports.catFoodController= () => {
+    foodFactory.catfoodData().then((catData)=>{
+        foodView.displayCatFood(catData.cat_brands);
+    });
+    };
 };

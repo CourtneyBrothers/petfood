@@ -7,5 +7,5 @@ const outputFood = require("./foodController");
 
 outputFood.foodController();
 
-
+outputFood.catFoodController();
 

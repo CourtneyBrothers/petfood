@@ -8,11 +8,13 @@ const outputFood = require("./foodController");
 
 outputFood.foodController();
 
-
+outputFood.catFoodController();
 
 
 },{"./foodController":2}],2:[function(require,module,exports){
+
 "use strict";
+
 const foodFactory = require("./jsonData");
 const foodView = require("./foodView");
 
@@ -22,8 +24,11 @@ foodFactory.dogfoodData().then((dogData)=>{
     foodView.displayFood(dogData.dog_brands);
 });
 
-foodFactory.catfoodData();
-
+module.exports.catFoodController= () => {
+    foodFactory.catfoodData().then((catData)=>{
+        foodView.displayCatFood(catData.cat_brands);
+    });
+    };
 };
 },{"./foodView":3,"./jsonData":4}],3:[function(require,module,exports){
 "use strict";
@@ -51,7 +56,24 @@ module.exports.displayFood = (dogData) => {
         });
     };
 
+  module.exports.displayCatFood = (catData) =>{
+    
+        let $output = $("#output");
+        catData.forEach( (brand) => {
+            //loop through brands
+            $output.append(`<h3>${brand.name}</h3>`);
+            $output.append(`<h4> breeds: ${brand.breeds} , </h4>`);
+            //loop through types
+                brand.types.forEach( (brandType) => {
+                    $output.append(`<h4>${_startcase(brandType.type)}</h4>`);
+                //loop through brandType's volumes array
+                        brandType.volumes.forEach((vol) =>{
+                            $output.append(`<h5>Size: ${vol.name} Price: $${vol.price}</h5> `);
+                        });
 
+                });
+        });
+    };
 },{"jquery":5,"lodash.startcase":6}],4:[function(require,module,exports){
 "use strict";
 
@@ -75,32 +97,18 @@ module.exports.dogfoodData = () => {
 };
 
 module.exports.catfoodData = () =>{ 
+    return new Promise((resolve,reject)=>{
     $.ajax({
         url: "../JSON/petfood2.json"
 
     }).done( (catData)=> {
-        let $output = $("#output");
-        console.log("Ajax done",catData,"catData brands",catData.cat_brands);
-        catData.cat_brands.forEach( (brand) => {
-            //loop through brands
-            $output.append(`<h3>${brand.name}</h3>`);
-            $output.append(`<h4> breeds: ${brand.breeds} , </h4>`);
-            //loop through types
-                brand.types.forEach( (brandType) => {
-                    $output.append(`<h4>${_startcase(brandType.type)}</h4>`);
-                //loop through brandType's volumes array
-                        brandType.volumes.forEach((vol) =>{
-                            $output.append(`<h5>Size: ${vol.name} Price: $${vol.price}</h5> `);
-                        });
-
-                });
-        });
+        resolve(catData);
     }).fail((error)=>{
         console.log("error", error.statusText);
     });
+    });
+
 };
-
-
 
 // module.exports.dogfoodData = function(callback){
 //     const loader = new XMLHttpRequest();

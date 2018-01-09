@@ -20,32 +20,18 @@ module.exports.dogfoodData = () => {
 };
 
 module.exports.catfoodData = () =>{ 
+    return new Promise((resolve,reject)=>{
     $.ajax({
         url: "../JSON/petfood2.json"
 
     }).done( (catData)=> {
-        let $output = $("#output");
-        console.log("Ajax done",catData,"catData brands",catData.cat_brands);
-        catData.cat_brands.forEach( (brand) => {
-            //loop through brands
-            $output.append(`<h3>${brand.name}</h3>`);
-            $output.append(`<h4> breeds: ${brand.breeds} , </h4>`);
-            //loop through types
-                brand.types.forEach( (brandType) => {
-                    $output.append(`<h4>${_startcase(brandType.type)}</h4>`);
-                //loop through brandType's volumes array
-                        brandType.volumes.forEach((vol) =>{
-                            $output.append(`<h5>Size: ${vol.name} Price: $${vol.price}</h5> `);
-                        });
-
-                });
-        });
+        resolve(catData);
     }).fail((error)=>{
         console.log("error", error.statusText);
     });
+    });
+
 };
-
-
 
 // module.exports.dogfoodData = function(callback){
 //     const loader = new XMLHttpRequest();
