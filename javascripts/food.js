@@ -1,19 +1,11 @@
 
+
+
 "use strict";
 /*jslint sub: true */
+const outputFood = require("./foodController");
 
-require("./jsonData");
-const dogJsonData = require("./jsonData");
+outputFood.foodController();
 
-
-// function displayPetfood(dogfood){
-    
-//     let output = document.getElementById("output");
-//     console.log("dogfood response text",JSON.stringify(dogfood));
-    
-//     console.log("dogfood array", dogfood);
-//     output.innerHTML = JSON.stringify(dogfood,null, 4);
-   
-// }
-// dogJsonData.dogfoodData(displayPetfood);
+outputFood.catFoodController();
 
