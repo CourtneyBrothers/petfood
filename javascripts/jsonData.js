@@ -2,6 +2,7 @@
 
 // require("./food");
 const $ = require("jquery");
+const _startcase = require("lodash.startcase");
 
 module.exports.dogfoodData = $.ajax({
     url: "../JSON/petfood.json"
@@ -14,7 +15,7 @@ module.exports.dogfoodData = $.ajax({
         $output.append(`<h3>${brand.name}</h3>`);
         //loop through types
             brand.types.forEach( (brandType) => {
-                $output.append(`<h4>${brandType.type}</h4>`);
+                $output.append(`<h4>${_startcase(brandType.type)}</h4>`);
             //loop through brandType's volumes array
                     brandType.volumes.forEach((vol) =>{
                         $output.append(`<h5>Size: ${vol.name}  Price: $${vol.price} </h5>`);
@@ -38,7 +39,7 @@ module.exports.catfoodData = $.ajax({
         $output.append(`<h4> breeds: ${brand.breeds} , </h4>`);
         //loop through types
             brand.types.forEach( (brandType) => {
-                $output.append(`<h4>${brandType.type}</h4>`);
+                $output.append(`<h4>${_startcase(brandType.type)}</h4>`);
             //loop through brandType's volumes array
                     brandType.volumes.forEach((vol) =>{
                         $output.append(`<h5>Size: ${vol.name} Price: $${vol.price}</h5> `);
