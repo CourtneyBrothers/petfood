@@ -1,40 +1,42 @@
-module.exports = function(grunt) {
-    grunt.initConfig({
-      browserify: {
-        'dist/bundle.js': ['javascripts/main.js']
+module.exports = function (grunt) {
+  grunt.initConfig({
+    browserify: {
+      files: {
+        src: "./javascripts/food.js",
+        dest: "./dist/app.js"
       },
-      jshint: {
-        files: ["javascripts/**/*.js"],
-        options: {
-          predef: ["document", "console"],
-          esnext: true,
-          globalstrict: true,
-          globals: {},
-          browserify: true
-        }
-      },
-      sass: {
-        dist: {
-          files: {
-            "stylesheets/main.css": "sass/main.scss"
-          }
-        }
-      },
-      watch: {
-        javascripts: {
-          files: ["javascripts/**/*.js"],
-          tasks: ["jshint", "browserify"]
-        },
-        sass: {
-          files: ["sass/**/*.scss"],
-          tasks: ["sass"]
-        }
+      options: {
+        transform: ["hbsfy"]
       }
-    });
-  
-    require("matchdep")
-      .filter("grunt-*")
-      .forEach(grunt.loadNpmTasks);
-  
-    grunt.registerTask("default", ['jshint', 'sass', 'browserify', 'watch']);
-  };
+    },
+    jshint: {
+      options: {
+        predef: ["document", "console", "alert"],
+        esnext: true,
+        globalstrict: true,
+        globals: {},
+        browserify: true
+      },
+      files: ["./javascripts/**/*.js"]
+    },
+    watch: {
+      options: {
+        reload: true
+      },
+      javascripts: {
+        files: ["./javascripts/**/*.js"],
+        tasks: ["jshint", "browserify"]
+      },
+      hbs: {
+        files: ["./templates/**/*.hbs"],
+        tasks: ["browserify"]
+      }
+    }
+  });
+
+  require("matchdep")
+    .filter("grunt-*")
+    .forEach(grunt.loadNpmTasks);
+
+  grunt.registerTask("default", ["jshint", "browserify", "watch"]);
+};
