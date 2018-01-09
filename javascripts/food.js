@@ -1,15 +1,11 @@
 
+
+
 "use strict";
 /*jslint sub: true */
-const foodFactory = require("./jsonData");
-const foodView = require("./foodView");
+const outputFood = require("./foodController");
 
+outputFood.foodController();
 
-foodFactory.dogfoodData().then((dogData)=>{
-    console.log("dogData", dogData);
-    foodView.displayFood(dogData.dog_brands);
-});
-
-foodFactory.catfoodData();
 
 

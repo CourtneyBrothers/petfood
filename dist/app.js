@@ -1,11 +1,22 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
+
+
 "use strict";
 /*jslint sub: true */
+const outputFood = require("./foodController");
+
+outputFood.foodController();
+
+
+
+
+},{"./foodController":2}],2:[function(require,module,exports){
+"use strict";
 const foodFactory = require("./jsonData");
 const foodView = require("./foodView");
 
-
+module.exports.foodController= () => {
 foodFactory.dogfoodData().then((dogData)=>{
     console.log("dogData", dogData);
     foodView.displayFood(dogData.dog_brands);
@@ -13,9 +24,8 @@ foodFactory.dogfoodData().then((dogData)=>{
 
 foodFactory.catfoodData();
 
-
-
-},{"./foodView":2,"./jsonData":3}],2:[function(require,module,exports){
+};
+},{"./foodView":3,"./jsonData":4}],3:[function(require,module,exports){
 "use strict";
 const $ = require("jquery");
 const _startcase = require("lodash.startcase");
@@ -42,7 +52,7 @@ module.exports.displayFood = (dogData) => {
     };
 
 
-},{"jquery":4,"lodash.startcase":5}],3:[function(require,module,exports){
+},{"jquery":5,"lodash.startcase":6}],4:[function(require,module,exports){
 "use strict";
 
 // require("./food");
@@ -105,7 +115,7 @@ module.exports.catfoodData = () =>{
 // };
 
 
-},{"jquery":4,"lodash.startcase":5}],4:[function(require,module,exports){
+},{"jquery":5,"lodash.startcase":6}],5:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.2.1
  * https://jquery.com/
@@ -10360,7 +10370,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 (function (global){
 /**
  * lodash (Custom Build) <https://lodash.com/>
