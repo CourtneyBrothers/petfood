@@ -35,7 +35,7 @@ module.exports.catfoodData = $.ajax({
     catData.cat_brands.forEach( (brand) => {
         //loop through brands
         $output.append(`<h3>${brand.name}</h3>`);
-        $output.append(`<h4>${brand.breeds}</h4>`);
+        $output.append(`<h4> breeds: ${brand.breeds}</h4>`);
         //loop through types
             brand.types.forEach( (brandType) => {
                 $output.append(`<h4>${brandType.type}</h4>`);
