@@ -1,13 +1,50 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
+
+
 "use strict";
 /*jslint sub: true */
 const foodFactory = require("./jsonData");
+const foodView = require("./foodView");
 
-foodFactory.dogfoodData();
+
+foodFactory.dogfoodData().then((dogData)=>{
+    console.log("dogData", dogData);
+    foodView.displayFood(dogData);
+});
+
 foodFactory.catfoodData();
 
-},{"./jsonData":2}],2:[function(require,module,exports){
+
+
+},{"./foodView":2,"./jsonData":3}],2:[function(require,module,exports){
+"use strict";
+const $ = require("jquery");
+const _startcase = require("lodash.startcase");
+const foodFactory = require("./jsonData");
+const food = require("./food");
+
+
+module.exports.displayFood = (dogData) => {
+    let $output = $("#output");
+    console.log("Ajax done",dogData,"dogData brands",dogData.dog_brands);
+    dogData.dog_brands.forEach( (brand) => {
+        //loop through brands
+        $output.append(`<h3>${_startcase(brand.name)}</h3>`);
+        //loop through types
+            brand.types.forEach( (brandType) => {
+                $output.append(`<h4>${_startcase(brandType.type)}</h4>`);
+            //loop through brandType's volumes array
+                    brandType.volumes.forEach((vol) =>{
+                        $output.append(`<h5>Size: ${vol.name}  Price: $${vol.price} </h5>`);
+                    });
+
+            });
+        });
+    };
+
+
+},{"./food":1,"./jsonData":3,"jquery":4,"lodash.startcase":5}],3:[function(require,module,exports){
 "use strict";
 
 // require("./food");
@@ -15,31 +52,20 @@ const $ = require("jquery");
 const _startcase = require("lodash.startcase");
 
 
-module.exports.dogfoodData = () =>{
 
+module.exports.dogfoodData = () => {
+    return new Promise((resolve,reject) => {
     $.ajax({
         url: "../JSON/petfood.json"
 
     }).done( (dogData)=> {
-        let $output = $("#output");
-        console.log("Ajax done",dogData,"dogData brands",dogData.dog_brands);
-        dogData.dog_brands.forEach( (brand) => {
-            //loop through brands
-            $output.append(`<h3>${_startcase(brand.name)}</h3>`);
-            //loop through types
-                brand.types.forEach( (brandType) => {
-                    $output.append(`<h4>${_startcase(brandType.type)}</h4>`);
-                //loop through brandType's volumes array
-                        brandType.volumes.forEach((vol) =>{
-                            $output.append(`<h5>Size: ${vol.name}  Price: $${vol.price} </h5>`);
-                        });
-
-                });
-        });
+        resolve(dogData);
     }).fail((error)=>{
-        console.log("error", error.statusText);
+        reject(error.statusText);
+    });
     });
 };
+
 module.exports.catfoodData = () =>{ 
     $.ajax({
         url: "../JSON/petfood2.json"
@@ -81,7 +107,7 @@ module.exports.catfoodData = () =>{
 // };
 
 
-},{"jquery":3,"lodash.startcase":4}],3:[function(require,module,exports){
+},{"jquery":4,"lodash.startcase":5}],4:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v3.2.1
  * https://jquery.com/
@@ -10336,7 +10362,7 @@ if ( !noGlobal ) {
 return jQuery;
 } );
 
-},{}],4:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 (function (global){
 /**
  * lodash (Custom Build) <https://lodash.com/>
